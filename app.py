@@ -14,9 +14,16 @@ debug_logger()
 ae = AE()
 ae.add_requested_context(PatientRootQueryRetrieveInformationModelFind)
 
+
+# Create our Identifier (query) dataset
 ds = Dataset()
-ds.PatientName = 'John'
-ds.QueryRetrieveLevel = 'PATIENT'
+ds.PatientName = 'john'
+ds.ScheduledProcedureStepSequence = [Dataset()]
+item = ds.ScheduledProcedureStepSequence[0]
+item.ScheduledStationAETitle = 'CTSCANNER'
+item.ScheduledProcedureStepStartDate = '20181005'
+item.Modality = 'CT'
+
 
 assoc = ae.associate(host, port)
 
