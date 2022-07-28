@@ -25,4 +25,4 @@ Ensure host/port is up by running the following command
 
 Ensure SCP is available by running the following command
 
-    python -m pynetdicom echoscu host port
+    python -m pynetdicom findscu host port -k QueryRetrieveLevel=PATIENT -k PatientName= -d
