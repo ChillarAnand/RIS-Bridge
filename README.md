@@ -31,3 +31,11 @@ Use `findscu` to query the worklists.
 
     # get worklists for a specific date
     $ python -m pynetdicom findscu host port -k QueryRetrieveLevel=PATIENT -k ScheduledStudyStartDate=20210712
+
+
+mwl.py
+--------
+
+This script will generate `*.wl` files directly from FH appointments data. This will be useful if you want to use `wlmscpfs` to serve worklists.
+
+    $ python mwl.py
