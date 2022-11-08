@@ -21,6 +21,7 @@ from pydicom.dataset import Dataset
 from pynetdicom.sop_class import (
     Verification,
     ModalityWorklistInformationFind,
+    PatientRootQueryRetrieveInformationModelFind,
     # TODO: ModalityPerformedProcedureStep
 )
 
@@ -46,13 +47,15 @@ def handle_find(event):
     Handle a C-FIND request event.
     https://pydicom.github.io/pynetdicom/stable/reference/generated/pynetdicom._handlers.doc_handle_find.html
     """
-
     if debug:
         logger.info(f"C-FIND: {vars(event)}")
 
     ds = event.identifier
+
     if 'QueryRetrieveLevel' not in ds:
         # Failure
+        if debug:
+            logger.debug("QueryRetrieveLevel not in ds")
         yield 0xC000, None
         return
 
@@ -148,6 +151,7 @@ def start_mwl_scp(args):
     # Add the supported presentation context
     ae.add_supported_context(Verification)
     ae.add_supported_context(ModalityWorklistInformationFind)
+    ae.add_supported_context(PatientRootQueryRetrieveInformationModelFind)
 
     if debug:
         for sc in ae.supported_contexts:
