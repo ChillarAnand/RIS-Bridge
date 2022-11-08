@@ -47,17 +47,9 @@ def handle_find(event):
     Handle a C-FIND request event.
     https://pydicom.github.io/pynetdicom/stable/reference/generated/pynetdicom._handlers.doc_handle_find.html
     """
-    if debug:
-        logger.info(f"C-FIND: {vars(event)}")
-
     ds = event.identifier
-
-    if 'QueryRetrieveLevel' not in ds:
-        # Failure
-        if debug:
-            logger.debug("QueryRetrieveLevel not in ds")
-        yield 0xC000, None
-        return
+    if debug:
+        logger.debug(f"C-FIND: {vars(event)}")
 
     filters = {}
 
@@ -68,6 +60,11 @@ def handle_find(event):
                 if debug:
                     logger.info(f"ds.PatientName not in ['*', '', '?']")
 
+        if 'ScheduledStudyStartDate' in ds:
+            if ds.ScheduledStudyStartDate not in ['*', '', '?']:
+                filters.update({'appointment_date': str(ds.ScheduledStudyStartDate)})
+                if debug:
+                    logger.info(f"ds.ScheduledStudyStartDate not in ['*', '', '?']")
         # TODO: Build further filters
 
         worklist = get_appointments(filters)
@@ -89,6 +86,7 @@ def handle_find(event):
         identifier = Dataset()
         identifier.QueryRetrieveLevel = ds.QueryRetrieveLevel
         identifier.PatientName = workitem.get('patient')
+        identifier.ScheduledStudyStartDate = workitem.get('appointment_date')
 
         if debug:
             logger.info(f"Yeilding {vars(identifier)}")
@@ -98,7 +96,7 @@ def handle_find(event):
 
 
 def get_appointments(filters):
-    fields = ["name", "patient", "status"]
+    fields = ["name", "patient", "appointment_date", "status"]
     config = get_config()
     url = f"{config.get('url')}/api/resource/Patient Appointment"
 
