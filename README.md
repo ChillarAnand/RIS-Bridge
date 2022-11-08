@@ -1,12 +1,15 @@
 RIS Bridge
------------
+============
 
+A simple DICOM AE server to query and retrieve worklists for radiology.
 
-Simple script to bridge RIS worklist and other information from DICOM modalities to HIS and vice versa.
-
+This server connects to Frappe Health & provides a simple interface to query and retrieve worklists for radiology.
 
 Usage
-------
+======
+
+Running Server
+----------------
 
 Install requirements using `pip`.
 
@@ -15,12 +18,16 @@ Install requirements using `pip`.
 
 Start the server by running the following command
 
-    python app.py --port 8042 ae-title
-
-Use any client and query the server.
-
-    python -m pynetdicom findscu host port -k QueryRetrieveLevel=PATIENT -k PatientName= -d
+    python app.py --host 0.0.0.0 --port 8042 ae-title
 
 
+Querying Worklists
+---------------------
 
+Use `findscu` to query the worklists.
 
+    # get worklists for a patient
+    $ python -m pynetdicom findscu host port -k QueryRetrieveLevel=PATIENT -k PatientName='*'
+
+    # get worklists for a specific date
+    $ python -m pynetdicom findscu host port -k QueryRetrieveLevel=PATIENT -k ScheduledStudyStartDate=20210712
