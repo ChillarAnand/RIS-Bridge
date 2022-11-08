@@ -135,8 +135,8 @@ def start_mwl_scp(args):
     https://pydicom.github.io/pynetdicom/stable/reference/generated/pynetdicom.ae.ApplicationEntity.html
     """
 
-    title, port = args.title, int(args.port)
-    logger.info(f"Starting MWL SCP {title} on {port}")
+    title, address, port = args.title, args.address, int(args.port)
+    logger.info(f"Starting MWL SCP {title} on {address}:{port}")
 
     handlers = [
         (evt.EVT_C_ECHO, handle_echo),
@@ -196,9 +196,12 @@ if __name__ == "__main__":
 
     # Required positional arguments
     parser.add_argument("title", help="AE Title for the MWL SCP, required")
-    parser.add_argument("-p", "--port", dest="port", default=104, help="Port for MWL SCP to listen, default 104")
+    parser.add_argument("-a", "--address", dest="address", default='0.0.0.0',
+                        help="Address for MWL SCP to listen, default 0.0.0.0")
+    parser.add_argument("-p", "--port", dest="port", default=8042, help="Port for MWL SCP to listen, default 104")
 
-    parser.add_argument(  # TODO: handle verbosity
+    # TODO: handle verbosity
+    parser.add_argument(
         "-d",
         "--debug",
         action="store_true",
