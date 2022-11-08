@@ -32,8 +32,8 @@ debug = False
 
 def handle_echo(event):
     """
-        Handle a C-ECHO request event.
-        https://pydicom.github.io/pynetdicom/stable/reference/generated/pynetdicom._handlers.doc_handle_echo.html
+    Handle a C-ECHO request event.
+    https://pydicom.github.io/pynetdicom/stable/reference/generated/pynetdicom._handlers.doc_handle_echo.html
     """
 
     if debug:
@@ -98,7 +98,7 @@ def handle_find(event):
 
 
 def get_appointments(filters):
-    fields = ["name", "status"]
+    fields = ["name", "patient", "status"]
     config = get_config()
     url = f"{config.get('url')}/api/resource/Patient Appointment"
 
