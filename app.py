@@ -69,6 +69,7 @@ def handle_find(event):
 
     ds = event.identifier
     if "QueryRetrieveLevel" not in ds:
+        logger.info(f"QueryRetrieveLevel not in dataset")
         yield 0xC000, None
         return
 
@@ -107,6 +108,7 @@ def handle_find(event):
 
     else:
         # Unable to process # TODO: or just fail?
+        logger.info(f"QueryRetrieveLevel not matching 'PATIENT'")
         yield 0xC000, None
         return
 
