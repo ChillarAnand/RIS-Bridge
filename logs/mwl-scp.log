@@ -1,0 +1,70 @@
+[32m[I 221214 20:30:07 app:194][39m Starting MWL SCP rofant on 104
+[32m[I 221214 20:30:07 app:209][39m Abstract Syntax: Verification SOP Class
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:30:07 app:209][39m Abstract Syntax: Modality Worklist Information Model - FIND
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:30:10 app:219][39m Received SIGINT, shutting down MWL SCP
+[32m[I 221214 20:31:26 app:194][39m Starting MWL SCP rofant on 127.0.0.1:104
+[32m[I 221214 20:31:26 app:209][39m Abstract Syntax: Verification SOP Class
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:31:26 app:209][39m Abstract Syntax: Modality Worklist Information Model - FIND
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:35:19 app:219][39m Received SIGINT, shutting down MWL SCP
+[32m[I 221214 20:36:39 app:193][39m Starting MWL SCP rofant on 127.0.0.1:104
+[32m[I 221214 20:36:39 app:208][39m Abstract Syntax: Verification SOP Class
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:36:39 app:208][39m Abstract Syntax: Modality Worklist Information Model - FIND
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:36:49 app:218][39m Received SIGINT, shutting down MWL SCP
+[32m[I 221214 20:38:00 app:193][39m Starting MWL SCP rofant on 127.0.0.1:104
+[32m[I 221214 20:38:00 app:208][39m Abstract Syntax: Verification SOP Class
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:38:00 app:208][39m Abstract Syntax: Modality Worklist Information Model - FIND
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:38:02 app:218][39m Received SIGINT, shutting down MWL SCP
+[32m[I 221214 20:38:11 app:193][39m Starting MWL SCP rofant on 127.0.0.1:104
+[32m[I 221214 20:38:11 app:208][39m Abstract Syntax: Verification SOP Class
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:38:11 app:208][39m Abstract Syntax: Modality Worklist Information Model - FIND
+    Transfer Syntax(es):
+        =Implicit VR Little Endian
+        =Explicit VR Little Endian
+        =Deflated Explicit VR Little Endian
+        =Explicit VR Big Endian
+[32m[I 221214 20:38:15 app:218][39m Received SIGINT, shutting down MWL SCP
