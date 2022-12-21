@@ -71,16 +71,16 @@ def handle_find(event):
     ds = event.identifier
     if "QueryRetrieveLevel" not in ds:
         logger.info(f"QueryRetrieveLevel not in dataset")
-        yield 0xC000, None
-        return
+        # yield 0xC000, None
+        # return
 
     try:
         filters = get_filters(ds)
     except NotImplementedError as e:
         # Unable to process # TODO: or just fail?
         logger.info(f"QueryRetrieveLevel not matching 'PATIENT'")
-        yield 0xC000, None
-        return
+        # yield 0xC000, None
+        # return
 
     worklist = get_appointments(filters)
 
@@ -126,8 +126,9 @@ def get_filters(ds):
 
     filters = {}
     filters.update({"appointment_date": [">=", date.today().strftime("%Y/%m/%d")]})
-    if ds.QueryRetrieveLevel != "PATIENT":
-        raise NotImplementedError
+    if ds.get('QueryRetrieveLevel') != "PATIENT":
+        # raise NotImplementedError
+        return filters
 
     if "PatientName" in ds:
         if ds.PatientName not in ["*", "", "?"]:
