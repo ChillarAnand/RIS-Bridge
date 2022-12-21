@@ -15,6 +15,7 @@ import requests
 import signal
 import sys
 import time
+from datetime import date
 from logzero import (
     logger,
     setup_logger,
@@ -73,44 +74,15 @@ def handle_find(event):
         yield 0xC000, None
         return
 
-    worklist = []
-    filters = {}
-
-    if ds.QueryRetrieveLevel == "PATIENT":
-        if "PatientName" in ds:
-            if ds.PatientName not in ["*", "", "?"]:
-                filters.update({"patient_name": str(ds.PatientName)})
-
-        if "PatientID" in ds and ds.PatientID:
-            filters.update({"patient": str(ds.PatientID)})
-
-        if "ScheduledStudyStartDate" in ds and ds.ScheduledStudyStartDate:
-            filters.update({"appointment_date": DA(ds.ScheduledStudyStartDate).isoformat()})
-
-        # FIXME
-        # if "ScheduledStudyStartTime" and ds.ScheduledStudyStartTime:
-        # 		print(TM(ds.ScheduledStudyStartTime).isoformat())
-        # 		filters.update({"appointment_time": TM(ds.ScheduledStudyStartTime).isoformat()})
-
-        if "RequestingPhysician" in ds and ds.RequestingPhysician:
-            filters.update({"practitioner": str(ds.RequestingPhysician)})
-
-        if "ScheduledPerformingPhysicianName" in ds and ds.ScheduledPerformingPhysicianName:
-            filters.update({"practitioner": str(ds.ScheduledPerformingPhysicianName)})
-
-        if "ScheduledStationAETitle" in ds and ds.ScheduledStationAETitle:
-            filters.update({"ae_title": str(ds.ScheduledStationAETitle)})
-
-        if "Modality" in ds and ds.Modality:
-            filters.update({"service_unit": str(ds.Modality)})
-
-        worklist = get_appointments(filters)
-
-    else:
+    try:
+        filters = get_filters(ds)
+    except NotImplementedError as e:
         # Unable to process # TODO: or just fail?
         logger.info(f"QueryRetrieveLevel not matching 'PATIENT'")
         yield 0xC000, None
         return
+
+    worklist = get_appointments(filters)
 
     logger.info(f"Sending {len(worklist)} worklist items")
 
@@ -143,12 +115,49 @@ def handle_find(event):
         # TODO: validate prepared dataset?
         # https://pydicom.github.io/pydicom/dev/reference/generated/pydicom.sequence.validate_dataset.html
 
-        logger.info(f"Yield {vars(identifier)}")
+        # logger.info(f"Yield {vars(identifier)}")
         # Pending
         # Matches are continuing: current match is supplied and any Optional Keys were supported in the same manner as Required Keys
         yield (0xFF00, identifier)
 
     logger.info(f"Worklist send complete")
+
+
+def get_filters(ds):
+
+    filters = {}
+    filters.update({"appointment_date": [">=", date.today().strftime("%Y/%m/%d")]})
+    if ds.QueryRetrieveLevel != "PATIENT":
+        raise NotImplementedError
+
+    if "PatientName" in ds:
+        if ds.PatientName not in ["*", "", "?"]:
+            filters.update({"patient_name": str(ds.PatientName)})
+
+    if "PatientID" in ds and ds.PatientID:
+        filters.update({"patient": str(ds.PatientID)})
+
+    if "ScheduledStudyStartDate" in ds and ds.ScheduledStudyStartDate:
+        filters.update({"appointment_date": DA(ds.ScheduledStudyStartDate).isoformat()})
+
+    # FIXME
+    # if "ScheduledStudyStartTime" and ds.ScheduledStudyStartTime:
+    # 		print(TM(ds.ScheduledStudyStartTime).isoformat())
+    # 		filters.update({"appointment_time": TM(ds.ScheduledStudyStartTime).isoformat()})
+
+    if "RequestingPhysician" in ds and ds.RequestingPhysician:
+        filters.update({"practitioner": str(ds.RequestingPhysician)})
+
+    if "ScheduledPerformingPhysicianName" in ds and ds.ScheduledPerformingPhysicianName:
+        filters.update({"practitioner": str(ds.ScheduledPerformingPhysicianName)})
+
+    if "ScheduledStationAETitle" in ds and ds.ScheduledStationAETitle:
+        filters.update({"ae_title": str(ds.ScheduledStationAETitle)})
+
+    if "Modality" in ds and ds.Modality:
+        filters.update({"service_unit": str(ds.Modality)})
+
+    return filters
 
 
 def get_appointments(filters):
