@@ -199,8 +199,8 @@ def start_mwl_scp(args):
     https://pydicom.github.io/pynetdicom/stable/reference/generated/pynetdicom.ae.ApplicationEntity.html
     """
 
-    title, ip_address, port = args.title, args.ip, int(args.port)
-    logger.info(f"Starting MWL SCP {title} on {ip_address}:{port}")
+    title, host, port = args.title, args.host, int(args.port)
+    logger.info(f"Starting MWL SCP {title} on {host}:{port}")
 
     handlers = [
         (evt.EVT_C_ECHO, handle_echo),
@@ -218,7 +218,7 @@ def start_mwl_scp(args):
         logger.info(sc)
 
     # Start listening for incoming association requests
-    ae.start_server((ip_address, port), evt_handlers=handlers)
+    ae.start_server((host, port), evt_handlers=handlers)
 
 
 def stop_mwl_scp(signal, frame):
@@ -255,7 +255,7 @@ if __name__ == "__main__":
 
     # Required positional arguments
     parser.add_argument("title", help="AE Title for the MWL SCP, required")
-    parser.add_argument("-ip", dest="ip", default="127.0.0.1", help="IP address of this computer, required")
+    parser.add_argument("--host", dest="host", default="127.0.0.1", help="IP address of host computer, required")
 
     parser.add_argument("-p", "--port", dest="port", default=104, help="Port for MWL SCP to listen, default 104")
 
