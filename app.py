@@ -91,12 +91,11 @@ def handle_find(event):
         # Check if C-CANCEL has been received
         if event.is_cancelled:
             logger.info(f"Event Cancelled {vars(event)}")
-
             yield (0xFE00, None) # Matching terminated due to Cancel request
             return
 
         identifier = Dataset()
-        setattr(identifier, "QueryRetrieveLevel", ds.QueryRetrieveLevel)
+        setattr(identifier, "QueryRetrieveLevel", ds.get("QueryRetrieveLevel", "PATIENT"))
 
         for field, dicom_tag in appointment_worklist_map.items():
 
