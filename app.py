@@ -33,7 +33,7 @@ CONFIG_PATH = "config.json"
 config = dict()
 
 appointment_worklist_map = {
-        "name": "", # "ScheduledProcedureStepID", # ?
+        "name": "AccessionNumber",
         "status": "", # "ScheduledProcedureStepStatus", # ?
         "patient": "PatientID",
         "patient_name": "PatientName",
