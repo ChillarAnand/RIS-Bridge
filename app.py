@@ -126,9 +126,9 @@ def get_filters(ds):
 
     filters = {}
     filters.update({"appointment_date": [">=", date.today().strftime("%Y/%m/%d")]})
-    if ds.get('QueryRetrieveLevel') != "PATIENT":
-        # raise NotImplementedError
-        return filters
+    # if ds.get('QueryRetrieveLevel') != "PATIENT":
+    #     # raise NotImplementedError
+    #     return filters
 
     if "PatientName" in ds:
         if ds.PatientName not in ["*", "", "?"]:
@@ -176,12 +176,12 @@ def get_appointments(filters):
         "filters": json.dumps(filters),
     }
 
-    logger.info(f"Request URL: {host_name}\nHeaders: {headers}\nData: {data}")
+    # logger.info(f"Request URL: {host_name}\nHeaders: {headers}\nData: {data}")
 
     response = requests.request("GET", host_name, headers=headers, data=data)
     appointments = json.loads(response._content)
 
-    logger.info(f"Response: {appointments}")
+    # logger.info(f"Response: {appointments}")
 
     if appointments and appointments.get("data"):
         return appointments.get("data")
